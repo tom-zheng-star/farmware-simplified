@@ -1,0 +1,51 @@
+核心工具清单 (Pop!_OS 环境)
+
+1. Python 3.11+
+- 需要安装吗：是
+- 如何/在哪安装：终端运行 sudo apt update && sudo apt install python3 python3-pip python3-venv
+
+2. FastAPI & Uvicorn
+- 需要安装吗：是
+- 如何/在哪安装：创建虚拟环境后，终端运行 pip install "fastapi[standard]"
+
+3. SQLAlchemy & Pydantic
+- 需要安装吗：是
+- 如何/在哪安装：终端运行 pip install sqlalchemy pydantic
+
+4. SQLite
+- 需要安装吗：否
+- 如何/在哪安装：Pop!_OS 系统自带，Python 内置 sqlite3 模块，直接使用
+
+5. Git
+- 需要安装吗：是
+- 如何/在哪安装：终端运行 sudo apt install git
+
+6. Docker
+- 需要安装吗：是
+- 如何/在哪安装：终端运行 sudo apt install docker.io
+
+7. Gitee SSH 配置
+- 需要安装吗：否（系统自带 ssh-keygen）
+- 如何/在哪配置：终端运行 ssh-keygen -t ed25519 -C "your_email@example.com"，将生成的公钥内容粘贴到 Gitee 网页“设置 -> SSH公钥”中
+
+
+
+
+
+inventory-project/          <-- 在此目录下运行 git init
+|
+|-- app/                    <-- 核心业务代码目录
+|   |-- main.py             <-- FastAPI 程序启动入口
+|   |-- models/             <-- 数据库表结构定义 (SQLAlchemy)
+|   |-- schemas/            <-- 接口数据校验规则 (Pydantic)
+|   |-- routers/            <-- API 接口逻辑 (处理用户请求)
+|   `-- utils/              <-- 工具类 (JWT, 密码加密等)
+|
+|-- tests/                  <-- 自动化测试代码 (Pytest)
+|-- docs/                   <-- 项目设计文档、需求说明
+|-- requirements.txt        <-- 第三方库依赖清单
+|-- .gitignore              <-- Git 忽略文件配置
+`-- README.md               <-- 项目介绍与使用说明
+
+
+
