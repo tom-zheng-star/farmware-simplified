@@ -1,0 +1,13 @@
+
+set up python
+sudo apt install python3 python3-pip python3-venv
+
+create virtual python environment(protect global lib)
+python3 -m venv venv
+
+active virtual python environment
+source venv/bin/activate
+exit: deactive
+
+install dependencies for this project(farmware simplified)
+pip install "fastapi[standard]" sqlalchemy pydantic
