@@ -11,3 +11,21 @@ exit: deactive
 
 install dependencies for this project(farmware simplified)
 pip install "fastapi[standard]" sqlalchemy pydantic
+
+
+install dependencies:
+pip install fastapi uvicorn[standard]
+pip install "uvicorn[standard]"
+这样做的原理是：python3 -m 会强制使用当前虚拟环境里的 Python 解释器来运行 uvicorn 模块。这个 Python 解释器知道虚拟环境的 site-packages 目录，所以能找到 fastapi
+
+
+Run :
+python3 -m uvicorn app.main:app --reload
+正确的启动方式
+永远用 python3 -m uvicorn 而不是直接敲 uvicorn！
+
+
+
+check endpoints:
+http://127.0.0.1:8000/docs
+interactive API documentation page (called Swagger UI)
