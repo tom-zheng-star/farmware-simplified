@@ -17,6 +17,14 @@ install dependencies:
 pip install fastapi uvicorn[standard]
 pip install "uvicorn[standard]"
 这样做的原理是：python3 -m 会强制使用当前虚拟环境里的 Python 解释器来运行 uvicorn 模块。这个 Python 解释器知道虚拟环境的 site-packages 目录，所以能找到 fastapi
+before dev the app ->
+pip install fastapi uvicorn[standard] sqlalchemy python-dotenv passlib[bcrypt] python-jose[cryptography] pydantic
+    use source qing hua to fix souce error:
+pip install sqlalchemy passlib[bcrypt] python-jose[cryptography] \
+  -i https://pypi.tuna.tsinghua.edu.cn/simple
+-OR-
+!!!change global source to qing hua !!!
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple 
 
 
 Run :
