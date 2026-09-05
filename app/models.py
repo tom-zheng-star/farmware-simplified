@@ -5,7 +5,7 @@ from .database import Base
 
 class User(Base):
 
-    __tablename__ = "users"  #It is a SQLAlchemy convention.
+    __tablename__ = "users"  # It is a SQLAlchemy convention.
 
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True, nullable=False)
