@@ -7,7 +7,7 @@ def create_user(db: Session, user: schemas.UserCreate):
     db_user = models.User(
         username = user.username,
         email = user.email,
-        password = user.password
+        hashed_password = user.password
     )
     # add object to session
     db.add(db_user)
@@ -22,6 +22,7 @@ def create_user(db: Session, user: schemas.UserCreate):
 def get_user(db:Session,user_id:int):
     # using sqlalchemy  query grammar
     return db.query(models.User).filter(models.User.id == user_id).first()
+
 
 
 # item template crud
@@ -42,6 +43,7 @@ def get_item_template(db:Session, item_template_id:int):
     return db.query(models.ItemTemplate).filter(models.ItemTemplate.id == item_template_id).first()
 
 
+
 # inventory item (inventory) crud
 def create_inventory(db:Session, inventory:schemas.InventoryCreate):
     db_inventory = models.Inventory(
@@ -57,9 +59,32 @@ def get_inventory(db:Session, inventory_id:int):
     return db.query(models.Inventory).filter(models.Inventory.id == inventory_id).first()
 
 
-# logs crud (r only for read only)
-def get_item_template_log(db:Session,log_id:int):
-    return db.query(models.TemplateLog).filter(models.TemplateLog.id == log_id).first
 
-def get_inventory_log(db:Session,log_id:int):
-    return db.query(models.InventoryLog).filter(models.InventoryLog.id == log_id).first
+
+# Logs CRUD (Read Only)
+
+# 1. 获取某个特定库存的所有操作历史（最常用）
+def get_inventory_logs_by_item(db: Session, inventory_id: int, skip: int = 0, limit: int = 100):
+    return (
+        db.query(models.InventoryLog)
+        .filter(models.InventoryLog.inventory_id == inventory_id)
+        .order_by(models.InventoryLog.time_stamp.desc()) # 最新的操作排在最前面
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+
+# 2. 获取某个特定模板的所有操作历史
+def get_template_logs_by_item(db: Session, template_id: int, skip: int = 0, limit: int = 100):
+    return (
+        db.query(models.TemplateLog)
+        .filter(models.TemplateLog.template_id == template_id)
+        .order_by(models.TemplateLog.time_stamp.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+
+# 3. 获取全局日志列表（通常只有 Admin 才能看）
+def get_all_inventory_logs(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.InventoryLog).order_by(models.InventoryLog.time_stamp.desc()).offset(skip).limit(limit).all()
